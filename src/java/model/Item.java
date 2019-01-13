@@ -23,6 +23,7 @@ public class Item {
         return quantity*product.getPrice();
     }
     
+    
     public CD getProduct(){
         return product;
     }
