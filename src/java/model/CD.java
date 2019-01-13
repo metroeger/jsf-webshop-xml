@@ -26,8 +26,6 @@ public class CD {
     public String toString() {
         return title;
     }
-    
-    
 
     public String getTitle() {
         return title;
@@ -76,7 +74,5 @@ public class CD {
     public void setYear(int year) {
         this.year = year;
     }
-    
-    
 
 }

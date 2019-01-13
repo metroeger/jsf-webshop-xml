@@ -1,5 +1,6 @@
 package mgbeans;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -24,32 +25,51 @@ public class ShoppingCart {
     }
 
     public void addItem(CD cd) {
-        Item item;
-
+        boolean isItem = false;
+        Item item = null;
+        
         for (Item i : shoppingList) {
             if (i.getProduct() == cd) {
-                i.setQuantity(i.getQuantity() + 1);
-            } else {
-                shoppingList.add(new Item(cd, 1));
+                item = i;
+                item.increaseQuantity();
+                isItem = true;
             }
+        }
+        if (!isItem) {
+            shoppingList.add(new Item(cd, 1));
+        }else{
+            item.increaseQuantity();
         }
     }
 
-    public void removeItem(CD cd) {
-        for (Item i : shoppingList) {
-            if (i.getProduct() == cd && i.getQuantity()>1) {
-                i.setQuantity(i.getQuantity()-1);
-            } else if (i.getProduct()==cd && i.getQuantity()==1) {
-                shoppingList.remove(cd);
-            }
-        }
+    public void removeItem(Item item) {
+        shoppingList.remove(item);
     }
+    
+    public void incQuantity(Item i){
+        i.increaseQuantity();
+    }
+    
+     public void decQuantity(Item i){
+        if (i.getQuantity()>1){
+          i.decreaseQuantity();  
+        }else{
+            removeItem(i);
+        }      
+    }
+     
 
     public double getTotalPrice() {
+        totalPrice = 0;
         for (Item i : shoppingList) {
             totalPrice += i.getTotalPrice();
         }
         return totalPrice;
+    }
+    
+    public String displayPrice(double price){
+         DecimalFormat newFormat = new DecimalFormat("#.##");
+            return newFormat.format(price) + "";
     }
 
     public List<Item> getShoppingList() {
