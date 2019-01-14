@@ -71,6 +71,10 @@ public class ShoppingCart {
          DecimalFormat newFormat = new DecimalFormat("#.##");
             return newFormat.format(price) + "";
     }
+    
+    public void emptyCart(){
+        shoppingList.clear();
+    }
 
     public List<Item> getShoppingList() {
         return shoppingList;

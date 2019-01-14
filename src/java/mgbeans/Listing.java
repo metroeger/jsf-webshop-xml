@@ -2,6 +2,8 @@ package mgbeans;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,14 +22,19 @@ public class Listing {
 
     private List<CD> cdList;
     private String error;
+    private String path;
+    
 
     public Listing() {
 
         error = "";
 
         SAXBuilder saxBuilder = new SAXBuilder();
-        File file = new File("C:\\webshop\\cd_catalog.xml");
+        
+        // find cd_catalog.xml in project's web/resources/sourceXMLFile
+        File file = new File("C:\\webshop\\cd_catalog.xml");  
         Document document;
+    
 
         cdList = new ArrayList<>();
 
@@ -74,4 +81,14 @@ public class Listing {
     public void setError(String error) {
         this.error = error;
     }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
+    
 }

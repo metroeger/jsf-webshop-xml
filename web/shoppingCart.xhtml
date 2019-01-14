@@ -9,13 +9,13 @@
     <h:body>
         <h:form>
             <h:commandLink value="Continue shopping" action="toIndex"/>
-            <h:dataTable value="#{shoppingCart.shoppingList}" var="item" style="border-style: ridge; border-color: aquamarine; font-family: fantasy; text-align: left">
-
+            <h:dataTable value="#{shoppingCart.shoppingList}" var="item" style="border-style: ridge; border-color: aquamarine; font-family: fantasy;  text-align: center">
                 <h:column>
                     <f:facet name="header">Quantity</f:facet>
                     <h:commandButton value="-" action="#{shoppingCart.decQuantity(item)}" />
                     #{item.quantity}
                     <h:commandButton value="+" action="#{shoppingCart.incQuantity(item)}" />
+                    <f:facet name="footer"><br/><h:commandLink value="Clear cart" action="#{shoppingCart.emptyCart()}" onclick="return confirm('Delete your shopping cart?') "/></f:facet>
                 </h:column>
 
                 <h:column>
@@ -30,20 +30,21 @@
                    <h:column>
                     <f:facet name="header">Price</f:facet>
                         #{shoppingCart.displayPrice(item.product.price)}
-                </h:column>    
+                    <f:facet name="footer"><br/>Total price:</f:facet>
+                   </h:column>    
                 <h:column>
-                    <f:facet name="header">Total price</f:facet>
+                    <f:facet name="header">Total</f:facet>
                         #{shoppingCart.displayPrice(item.totalPrice)}
+                    <f:facet name="footer"><br/>#{shoppingCart.displayPrice(shoppingCart.totalPrice)}</f:facet>
                 </h:column>                
                 <h:column>
                     <f:facet name="header">Delete</f:facet>
                     <h:commandButton value="Delete" action="#{shoppingCart.removeItem(item)}"/>
+                    <f:facet name="footer"><br/><h:commandLink value="ToPay"/></f:facet>
                 </h:column> 
 
             </h:dataTable>
             
-            <h:outputText value="Total price = #{shoppingCart.displayPrice(shoppingCart.totalPrice)}"/> <br/>
-
             <h:commandLink value="Back to products" action="toIndex"/>
         </h:form>
     </h:body>

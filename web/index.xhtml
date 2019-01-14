@@ -9,7 +9,7 @@
     <h:body>
         <h:form>
             <h:commandLink value="Shopping cart" action="toCart"/><br/>
-            <h:dataTable value="#{listing.cdList}" var="cd">
+            <h:dataTable value="#{listing.cdList}" var="cd" style="width: 70%; float: left">
                 <h:column>
                     <f:facet name="header">
                         Artist
@@ -47,9 +47,32 @@
                     </f:facet>
                     <h:commandButton value="Add to cart" action="#{shoppingCart.addItem(cd)}"/>
                 </h:column>
-                
+
             </h:dataTable>
 
+            <h:dataTable value="#{shoppingCart.shoppingList}" var="item"            
+                         id="tbl"
+                         style="border-style: ridge; border-color: aquamarine; font-family: fantasy;  text-align: center">
+                <h:column>
+                    <f:facet name="header">
+                        Item
+                    </f:facet>
+                    #{item.product.title}
+                    <f:facet name="footer">
+                        Total price:
+                    </f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Quantity
+                    </f:facet>
+                    #{item.quantity}
+                    <f:facet name="footer">
+                        #{shoppingCart.displayPrice(shoppingCart.totalPrice)}
+                    </f:facet>
+                </h:column>
+            </h:dataTable> 
+            <h:commandLink value="ToCart" action="toCart" rendered="#{shoppingCart.shoppingList.size()>0}" style="border-color: aquamarine; font-family: fantasy"/><br/>      
         </h:form>
     </h:body>
 </html>
